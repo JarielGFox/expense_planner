@@ -74,9 +74,12 @@ const ExpenseForm = ({ onSaveExpenseData }) => {
                         </button>
                         <button onClick={submitHandler}>Submit Expense</button>
                     </>
-                ) : (!showForm ? (<button onClick={formHandler}>
-                    Add New Expense
-                </button>) : null)}
+                ) : (!showForm ? (<center>
+                    <button onClick={formHandler}>
+                        Add New Expense
+                    </button>
+                </center>
+                ) : null)}
             </div>
         </form >
     );
