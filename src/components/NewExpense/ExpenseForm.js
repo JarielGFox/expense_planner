@@ -5,8 +5,14 @@ const ExpenseForm = ({ onSaveExpenseData }) => {
     const [title, setTitle] = useState('');
     const [amount, setAmount] = useState('');
     const [date, setDate] = useState('');
+    const [showForm, setShowForm] = useState(false);
 
+    //funzione per mostrare o nascondere il form
+    const formHandler = () => {
+        setShowForm(!showForm);
+    }
 
+    //gruppo di funzioni per modificare titolo, importo e data
     const titleHandler = (event) => {
         setTitle(event.target.value);
     }
@@ -19,6 +25,7 @@ const ExpenseForm = ({ onSaveExpenseData }) => {
         setDate(event.target.value);
     }
 
+    //funzione per inviare i dati al submit del form
     const submitHandler = (event) => {
         event.preventDefault();
 
@@ -36,7 +43,7 @@ const ExpenseForm = ({ onSaveExpenseData }) => {
 
     return (
         <form onSubmit={submitHandler}>
-            <div className="new-expense__controls">
+            {showForm ? (<div className="new-expense__controls">
                 <div className="new-expense__control">
                     <label htmlFor="">Title</label>
                     <input type="text"
@@ -57,13 +64,20 @@ const ExpenseForm = ({ onSaveExpenseData }) => {
                         value={date}
                         onChange={dateHandler} />
                 </div>
-            </div>
-            <div className="new-expense__actions">
-                <button>
-                    Add Expense
-                </button>
-            </div>
+            </div>) : null}
 
+            <div className="new-expense__actions">
+                {showForm ? (
+                    <>
+                        <button onClick={formHandler}>
+                            Cancel
+                        </button>
+                        <button onClick={submitHandler}>Submit Expense</button>
+                    </>
+                ) : (!showForm ? (<button onClick={formHandler}>
+                    Add New Expense
+                </button>) : null)}
+            </div>
         </form >
     );
 
