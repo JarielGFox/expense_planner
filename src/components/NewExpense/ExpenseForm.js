@@ -1,16 +1,11 @@
 import './ExpenseForm.css';
 import { useState } from "react";
 
-const ExpenseForm = ({ onSaveExpenseData }) => {
+const ExpenseForm = ({ onSaveExpenseData, onCancel }) => {
     const [title, setTitle] = useState('');
     const [amount, setAmount] = useState('');
     const [date, setDate] = useState('');
-    const [showForm, setShowForm] = useState(false);
 
-    //funzione per mostrare o nascondere il form
-    const formHandler = () => {
-        setShowForm(!showForm);
-    }
 
     //gruppo di funzioni per modificare titolo, importo e data
     const titleHandler = (event) => {
@@ -43,7 +38,7 @@ const ExpenseForm = ({ onSaveExpenseData }) => {
 
     return (
         <form onSubmit={submitHandler}>
-            {showForm ? (<div className="new-expense__controls">
+            <div className="new-expense__controls">
                 <div className="new-expense__control">
                     <label htmlFor="">Title</label>
                     <input type="text"
@@ -64,22 +59,11 @@ const ExpenseForm = ({ onSaveExpenseData }) => {
                         value={date}
                         onChange={dateHandler} />
                 </div>
-            </div>) : null}
+            </div>
 
             <div className="new-expense__actions">
-                {showForm ? (
-                    <>
-                        <button onClick={formHandler}>
-                            Cancel
-                        </button>
-                        <button onClick={submitHandler}>Submit Expense</button>
-                    </>
-                ) : (!showForm ? (<center>
-                    <button onClick={formHandler}>
-                        Add New Expense
-                    </button>
-                </center>
-                ) : null)}
+                <button type="button" onClick={onCancel}>Cancel</button>
+                <button type="submit">Add Expense</button>
             </div>
         </form >
     );
